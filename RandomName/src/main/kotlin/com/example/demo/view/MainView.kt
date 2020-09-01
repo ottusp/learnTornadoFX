@@ -8,7 +8,7 @@ import tornadofx.*
 import java.util.*
 import kotlin.math.abs
 
-class MainView : View("Hello TornadoFX") {
+class MainView : View("Random Name") {
 
     val mainController: MainController by inject()
 
