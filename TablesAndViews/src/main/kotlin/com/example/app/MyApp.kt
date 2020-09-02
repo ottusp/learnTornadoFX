@@ -7,9 +7,12 @@ import tornadofx.App
 class MyApp: App(MainView::class, Styles::class) {
     override fun start(stage: Stage) {
 
+        stage.isMaximized = true
+
         with(stage) {
-            width = 500.0
-            height = 500.0
+            width = 1200.0
+            height = 600.0
+
         }
 
         super.start(stage)
