@@ -8,9 +8,13 @@ class MainView : View("Hello TornadoFX") {
 
     private val mainController: MainController by inject()
 
+    private val buttonMatrixView: ButtonMatrixView by inject()
+
     override val root = vbox {
         label(mainController.result) {
             addClass(Styles.heading)
         }
+
+        this.add(buttonMatrixView.root)
     }
 }

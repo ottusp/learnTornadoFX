@@ -1,8 +1,8 @@
 package com.example.controllers
 
-import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.SimpleDoubleProperty
 import tornadofx.*
 
 class MainController: Controller() {
-    val result = SimpleStringProperty("Olá!")
+    val result = SimpleDoubleProperty(0.0)
 }
