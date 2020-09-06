@@ -40,8 +40,9 @@ class MainController: Controller() {
         students.add(student)
     }
 
-    fun addStudent(firstName: String, lastName: String, birthday: LocalDate) {
-        val student = Student(nextId, firstName, lastName, birthday)
+    fun addStudent(firstName: String?, lastName: String?, birthday: LocalDate?) {
+        if(isInvalid(firstName, lastName, birthday)) return
+        val student = Student(nextId, firstName!!, lastName!!, birthday!!)
         addStudent(student)
     }
 
@@ -49,4 +50,8 @@ class MainController: Controller() {
         names.add(name)
     }
 
+    private fun isInvalid(firstName: String?, lastName: String?, birthday: LocalDate?): Boolean {
+        if (firstName == null || lastName == null || birthday == null) return true
+        return (firstName.trim().isEmpty() || lastName.trim().isEmpty() || birthday.isAfter(LocalDate.now()))
+    }
 }
