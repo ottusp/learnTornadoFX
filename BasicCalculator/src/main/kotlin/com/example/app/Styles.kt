@@ -1,16 +1,12 @@
 package com.example.app
 
+import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import tornadofx.Stylesheet
-import tornadofx.box
-import tornadofx.cssclass
-import tornadofx.px
+import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
         val heading by cssclass()
-        val numberButton by cssclass()
-        val numberButtonDoubleWidth = numberButton
     }
 
     init {
@@ -20,8 +16,13 @@ class Styles : Stylesheet() {
             fontWeight = FontWeight.BOLD
         }
 
-        numberButton {
-            prefWidth = 50.px
+        button {
+            prefWidth = 100.px
+            prefHeight = 20.px
+
+            minWidth = 50.px
+
+            backgroundColor += c("#eeeeee", .8)
         }
     }
 }
