@@ -2,9 +2,15 @@ package com.example.app
 
 import com.example.view.MainView
 import javafx.stage.Stage
-import tornadofx.App
+import tornadofx.*
 
 class MyApp: App(MainView::class, Styles::class) {
+
+    init {
+        reloadStylesheetsOnFocus()
+        reloadViewsOnFocus()
+    }
+
     override fun start(stage: Stage) {
 
         with(stage) {

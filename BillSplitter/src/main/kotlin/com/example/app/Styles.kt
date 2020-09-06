@@ -1,21 +1,41 @@
 package com.example.app
 
+import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
-import tornadofx.Stylesheet
-import tornadofx.box
-import tornadofx.cssclass
-import tornadofx.px
+import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
-        val heading by cssclass()
+        val resultBox by cssclass()
+        val textfield by cssclass()
+        val comboBox by cssclass()
+
+        private val coolStyle = CssSelectionBlock {
+            backgroundRadius = multi(box(20.px))
+            backgroundColor = multi(c("#303030"))
+
+            textFill = Color.WHITE
+            fontWeight = FontWeight.BOLD
+        }
+
     }
 
     init {
-        label and heading {
-            padding = box(10.px)
+        resultBox{
             fontSize = 20.px
             fontWeight = FontWeight.BOLD
+            fontFamily = "Comic Sans MS"
+            backgroundColor = multi(c("#f77fbe"))
+        }
+
+        textfield {
+            mix(coolStyle)
+
+        }
+
+        comboBox {
+            mix(coolStyle)
+            backgroundColor = multi(c("808080"))
         }
     }
 }

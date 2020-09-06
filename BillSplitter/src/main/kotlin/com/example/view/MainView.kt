@@ -7,22 +7,22 @@ import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.geometry.Orientation
 import javafx.geometry.Pos
-import javafx.scene.control.ButtonType
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Slider
 import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
+import javafx.scene.paint.Color
 import tornadofx.*
 
 class MainView : View("Bill Splitter") {
 
-    val mainController: MainController by inject()
+    private val mainController: MainController by inject()
 
-    var splitCombo: ComboBox<Int> by singleAssign()
-    var mSlider: Slider by singleAssign()
-    var billAmountField: TextField by singleAssign()
+    private var splitCombo: ComboBox<Int> by singleAssign()
+    private var mSlider: Slider by singleAssign()
+    private var billAmountField: TextField by singleAssign()
 
-    val oneToTen = mutableListOf<Int>()
+    private val oneToTen = mutableListOf<Int>()
     init {
         for(i in 1..10)
             oneToTen.add(i)
@@ -31,14 +31,24 @@ class MainView : View("Bill Splitter") {
     override val root = vbox {
         alignment = Pos.TOP_CENTER
 
-        label("Total Per Person") {
-            addClass(Styles.heading)
-        }
-        label {
-            addClass(Styles.heading)
-            textProperty().bind(Bindings.concat(
-                    Bindings.format("%.2f", mainController.totalPerPerson)
-            ))
+        vbox {
+            alignment = Pos.TOP_CENTER
+            addClass(Styles.resultBox)
+
+            label("Total Per Person") {
+                style {
+                    textFill = c("#303030")
+                }
+            }
+            label {
+                style {
+                    textFill = c("#4c454c")
+                }
+
+                textProperty().bind(Bindings.concat(
+                        Bindings.format("%.2f", mainController.totalPerPerson)
+                ))
+            }
         }
 
         form {
@@ -46,26 +56,33 @@ class MainView : View("Bill Splitter") {
             fieldset(labelPosition =  Orientation.HORIZONTAL) {
                 field("Bill Amount") {
                     maxWidth = 190.0
-                    billAmountField = textfield()
-                    billAmountField.filterInput {
-                        it.controlNewText.isDouble() || it.controlNewText.isInt()
-                    }
+                    billAmountField = textfield {
+                        addClass(Styles.textfield)
 
-                    billAmountField.setOnKeyPressed {
-                        if(it.code == KeyCode.ENTER) {
-                            validateField()
+                        filterInput {
+                            it.controlNewText.isDouble() || it.controlNewText.isInt()
+                        }
+
+                        setOnKeyPressed {
+                            if(it.code == KeyCode.ENTER) {
+                                validateField()
+                            }
                         }
                     }
+
                 }
 
                 field {
                     label("Split by: ")
                     splitCombo = combobox(values = oneToTen) {
+                        addClass(Styles.comboBox)
+
                         prefWidth = 135.0
                         value = oneToTen.first()
-                    }
-                    splitCombo.valueProperty().onChange {
-                        validateField()
+
+                        valueProperty().onChange {
+                            validateField()
+                        }
                     }
 
                 }
@@ -75,9 +92,12 @@ class MainView : View("Bill Splitter") {
                         spacing = 23.0
 
                         label("Total tip")
-                        label().textProperty().bind(Bindings.concat("$",
-                                mainController.tipPercentageAmount
-                        ))
+                        label {
+
+                            textProperty().bind(Bindings.concat("$",
+                                    mainController.tipPercentageAmount
+                            ))
+                        }
                     }
                 }
 
