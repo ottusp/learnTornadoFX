@@ -22,6 +22,7 @@ class BubbleController: Controller() {
         timeline {
             keyframe(Duration.seconds(2.4)) {
                 keyvalue(circle.radiusProperty(), 200, Interpolator.EASE_BOTH)
+                keyvalue(circle.centerYProperty(), 1000, Interpolator.EASE_IN)
             }
         }
 
